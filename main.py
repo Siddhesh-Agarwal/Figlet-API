@@ -1,5 +1,4 @@
 import pyfiglet
-import uvicorn
 from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
@@ -16,10 +15,6 @@ def main(text: str, font: str = "standard"):
     return {"status_code": 200, "result": res}
 
 
-@app.get("/fonts/")
+@app.get("/fonts")
 def fonts():
     return {"status_code": 200, "fonts": pyfiglet.FigletFont.getFonts()}
-
-
-if __name__ == "__main__":
-    uvicorn.run(app)

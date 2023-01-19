@@ -26,3 +26,7 @@ def main():
 @app.route("/fonts")
 def fonts():
     return pyfiglet.FigletFont.getFonts()
+
+
+if __name__ == "__main__":
+    app.run()

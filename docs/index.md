@@ -79,5 +79,5 @@ GET https://figlet-api.onrender.com/fonts
   "barbwire",
   "basic",
   ...
-}
+]
 ```

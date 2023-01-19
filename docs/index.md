@@ -3,6 +3,13 @@
 This is the documentation for the Figlet-API. It is a simple API that allows you to generate ASCII art from text.
 ____
 
+## API
+
+This is the link of the API:
+
+https://figlet-api.onrender.com/
+____
+
 ## Usage
 
 The API is very simple to use.

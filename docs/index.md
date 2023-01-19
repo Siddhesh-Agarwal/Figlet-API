@@ -14,7 +14,7 @@ This endpoint returns a list of all the fonts available.
 
 #### Endpoint
 
-```bash
+```
 GET /?text={text}&font={font}
 ```
 
@@ -23,7 +23,7 @@ the `text` parameter is required, and the `font` parameter is optional (defaults
 #### Example
 
 ```bash
-GET /?text=Hello%20World
+GET https://figlet-api.onrender.com/?text=Hello%20World
 ```
 
 ```json
@@ -49,7 +49,7 @@ GET /fonts
 #### Example
 
 ```bash
-GET /fonts
+GET https://figlet-api.onrender.com/fonts
 ```
 
 ```json

@@ -8,6 +8,16 @@ app = Flask(__name__)
 def main():
     text = request.args.get("text")
     font = request.args.get("font", "standard")
+    if text is None:
+        return (
+            jsonify(
+                {
+                    "status_code": 400,
+                    "detail": "Missing required parameter 'text'",
+                }
+            ),
+            400,
+        )
     if font not in pyfiglet.FigletFont.getFonts():
         return (
             jsonify(
@@ -18,7 +28,6 @@ def main():
             ),
             404,
         )
-
     res = pyfiglet.figlet_format(text, font=font)
     return jsonify({"text": text, "font": font, "ascii": res})
 

@@ -1,54 +1,34 @@
 import pyfiglet
-from flask import Flask, jsonify, request
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 
-app = Flask(__name__)
+app = FastAPI()
 
+
+# allow CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # convert text to ascii art
-@app.route("/")
-def main():
-    text = request.args.get("text")
-    font = request.args.get("font", "standard")
+@app.get("/")
+def main(text: str, font: str="standard"):
     if text is None:
-        return (
-            jsonify(
-                {
-                    "status_code": 400,
-                    "detail": "Missing required parameter 'text'",
-                }
-            ),
-            400,
-        )
+        return {"status": "ok"}
     if font not in pyfiglet.FigletFont.getFonts():
-        return (
-            jsonify(
-                {
-                    "status_code": 404,
-                    "detail": f"Font '{font}' not found. Check /fonts for available fonts.",
-                }
-            ),
-            404,
-        )
-    res = pyfiglet.figlet_format(text, font=font)
-    return jsonify({"text": text, "font": font, "ascii": res})
+        return {"status": "error", "message": "font not found"}
+    res = pyfiglet.figlet_format(text, font)
+    return {"status": "ok", "text": text, "font": font, "ascii": res}
 
 
 # list all available fonts
-@app.route("/fonts")
+@app.get("/fonts")
 def fonts():
     return pyfiglet.FigletFont.getFonts()
 
 
-# error handler
-@app.errorhandler(400)
-def bad_request(e):
-    return jsonify({"status_code": 400, "detail": "Bad request"}), 400
-
-
-@app.errorhandler(404)
-def not_found(e):
-    return jsonify({"status_code": 404, "detail": "Not found"}), 404
-
-
-if __name__ == "__main__":
-    app.run()

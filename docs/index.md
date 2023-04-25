@@ -8,7 +8,7 @@ ____
 
 This is the link of the API:
 
-https://figlet-api.onrender.com/
+[https://figlet-api.onrender.com/](https://figlet-api.onrender.com/)
 
 ____
 
@@ -28,7 +28,11 @@ This endpoint returns a list of all the fonts available.
 GET /?text={text}&font={font}
 ```
 
-the `text` parameter is required, and the `font` parameter is optional (defaults to `standard`).
+the `text` parameter is required, and the `font` parameter is optional (defaults to `standard`). So this is correct too
+
+```
+GET /?text={text}
+```
 
 #### Example
 
@@ -42,6 +46,16 @@ GET https://figlet-api.onrender.com/?text=Hello%20World
   "font": "standard",
   "ascii": " _   _      _ _        __        __         _     _ \r\n| | | | ___| | | ___   \\ \\      / /__  _ __| | __| |\r\n| |_| |/ _ \\ | |/ _ \\   \\ \\ /\\ / / _ \\| '__| |/ _` |\r\n|  _  |  __/ | | (_) |   \\ V  V / (_) | |  | | (_| |\r\n|_| |_|\\___|_|_|\\___/     \\_/\\_/ \\___/|_|  |_|\\__,_|\r\n"
 }
+```
+
+the ASCII will look something like this:
+```
+ _   _      _ _        __        __         _     _
+| | | | ___| | | ___   \ \      / /__  _ __| | __| |
+| |_| |/ _ \ | |/ _ \   \ \ /\ / / _ \| '__| |/ _` |
+|  _  |  __/ | | (_) |   \ V  V / (_) | |  | | (_| |
+|_| |_|\___|_|_|\___/     \_/\_/ \___/|_|  |_|\__,_|
+
 ```
 
 ____

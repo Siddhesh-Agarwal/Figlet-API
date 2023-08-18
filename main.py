@@ -43,3 +43,9 @@ def main(text: str, font: str = "standard") -> Response:
 @app.get("/fonts")
 def fonts() -> List[str]:
     return pyfiglet.FigletFont.getFonts()  # type: ignore
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=10000)

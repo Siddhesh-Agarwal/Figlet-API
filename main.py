@@ -1,9 +1,17 @@
+from typing import List
 import pyfiglet
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
+from pydantic import BaseModel
 
-app = FastAPI()
+app = FastAPI(
+    title="Figlet API",
+    description="Convert text to ascii art",
+    version="1.0.0",
+    docs_url="/",
+    redoc_url=None,
+    deprecated=False,
+)
 
 
 # allow CORS
@@ -11,24 +19,27 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET"],
     allow_headers=["*"],
 )
 
+
+class Response(BaseModel):
+    text: str
+    font: str
+    ascii: pyfiglet.FigletString
+
+
 # convert text to ascii art
-@app.get("/")
-def main(text: str, font: str="standard"):
-    if text is None:
-        return {"status": "ok"}
+@app.get("/ascii")
+def main(text: str, font: str = "standard") -> Response:
     if font not in pyfiglet.FigletFont.getFonts():
-        return {"status": "error", "message": "font not found"}
-    res = pyfiglet.figlet_format(text, font)
-    return {"status": "ok", "text": text, "font": font, "ascii": res}
+        raise ValueError("Invalid font name")
+    ascii: pyfiglet.FigletString = pyfiglet.figlet_format(text, font)
+    return Response(text=text, font=font, ascii=ascii)
 
 
 # list all available fonts
 @app.get("/fonts")
-def fonts():
-    return pyfiglet.FigletFont.getFonts()
-
-
+def fonts() -> List[str]:
+    return pyfiglet.FigletFont.getFonts()  # type: ignore

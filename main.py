@@ -29,6 +29,15 @@ class Response(BaseModel):
     font: str
     ascii: str
 
+    class Config:
+        schema_extra: dict[str, dict[str, str]] = {
+            "example": {
+                "text": "Hello World",
+                "font": "standard",
+                "ascii": pyfiglet.figlet_format("Hello World"),  # type: ignore
+            }
+        }
+
 
 # convert text to ascii art
 @app.get("/ascii")

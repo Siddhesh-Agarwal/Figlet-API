@@ -27,7 +27,7 @@ app.add_middleware(
 class Response(BaseModel):
     text: str
     font: str
-    ascii: pyfiglet.FigletString
+    ascii: str
 
 
 # convert text to ascii art
@@ -35,7 +35,7 @@ class Response(BaseModel):
 def main(text: str, font: str = "standard") -> Response:
     if font not in pyfiglet.FigletFont.getFonts():
         raise ValueError("Invalid font name")
-    ascii: pyfiglet.FigletString = pyfiglet.figlet_format(text, font)
+    ascii: pyfiglet.FigletString = pyfiglet.figlet_format(text, font)  # type: ignore
     return Response(text=text, font=font, ascii=ascii)
 
 

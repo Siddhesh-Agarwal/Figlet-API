@@ -1,4 +1,5 @@
 from typing import List
+
 import pyfiglet  # type: ignore
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -34,7 +35,7 @@ class Response(BaseModel):
             "example": {
                 "text": "Hello World",
                 "font": "standard",
-                "ascii": pyfiglet.figlet_format("Hello World"),  # type: ignore
+                "ascii": pyfiglet.figlet_format("Hello World"),
             }
         }
 
@@ -44,17 +45,17 @@ class Response(BaseModel):
 def main(text: str, font: str = "standard") -> Response:
     if font not in pyfiglet.FigletFont.getFonts():
         raise ValueError("Invalid font name")
-    ascii: pyfiglet.FigletString = pyfiglet.figlet_format(text, font)  # type: ignore
+    ascii: pyfiglet.FigletString = pyfiglet.figlet_format(text, font)
     return Response(text=text, font=font, ascii=ascii)
 
 
 # list all available fonts
 @app.get("/fonts")
 def fonts() -> List[str]:
-    return pyfiglet.FigletFont.getFonts()  # type: ignore
+    return pyfiglet.FigletFont.getFonts()
 
 
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=10000)  # type: ignore
+    uvicorn.run(app, host="0.0.0.0", port=10000)

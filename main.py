@@ -1,5 +1,5 @@
 from typing import List
-import pyfiglet
+import pyfiglet  # type: ignore
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -57,4 +57,4 @@ def fonts() -> List[str]:
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=10000)
+    uvicorn.run(app, host="0.0.0.0", port=10000)  # type: ignore
